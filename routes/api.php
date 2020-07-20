@@ -1,5 +1,7 @@
 <?php
 
+use App\Author;
+use App\Http\Resources\AuthorResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +16,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::get('/authors', function()
+{
+    return AuthorResource::collection(Author::get());
+});
+
+Route::get('/best_author', function()
+{
+    return new AuthorResource(Author::find(10));
 });
